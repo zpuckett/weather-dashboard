@@ -1,133 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <title>Weather Dashboard</title>
 </head>
-
 <body>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-
-    <header>
-        <div class="header">
-            <div>
-                <h1>Weather Dashboard 🌤</h1>
-            </div>
-        </div>
+    <header class = "bg-dark text-white text-center p-2">
+        <h1>Weather Dashboard ☀️ 🌩️</h1>
     </header>
-
-    <br>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 pl-2">
-                <div class="card" style="width: 20rem;">
-                    <div class="card-body">
-                        <h5>Search City:</h5>
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <input type="text class" class="form-control" id="city-input">
-                            </div>
-                            <button id="search-button" type="submit" class="btn btn-primary">Search<i
-                                    class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-                </div>
+    <main class="container-fluid">
+        <div class = "row">
+            <div class="col-12 col-md-3 p-2 search-column">
+                <form class = "border p-2" id = "city-search-form">
+                    <h4>Search For City 🏙️</h2>
+                    <input id="city" type = "text" autofocus = "true" class = "form-input"/>
+                    <button class = "btn btn-primary" type = "submit">Search</button>
+                </form>
+                <div class = "past-search border" id = "past-search-buttons"></div>
             </div>
-            <div>
-                <ul id="city-list" class="list-group">
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div id="current-weather" class="card">
-                <div class="card-body">
-                    <div id="city-day-icon">
-                        <span id="city-name">
-                        </span>
-                        <span id="current-icon"></span>
-                        <p class="card-text" id="current-temp"></p>
-                        <p class="card-text" id="current-humidity"></p>
-                        <p class="card-text" id="current-wind"></p>
-                        <p class="card-text" id="current-sun"></p>
-                    </div>
+            <div class="col-12 col-md-9">
+                <div class = "row border selected-city" id = "current-forecast">
+                    <div class = "col-12">
+                        <h2 id="searched-city"></h2>
+                        <div id = "current-weather-container" class = "list-group"></div>
+                    </div>  
                 </div>
-                <div class="row">
-                    <div id="forecast-weather" class="col-md-9">
-                        <h4>5 Day Forecast:</h4>
-                        <div id="forecast-cards">
-                            <div class="card forecast">
-                                <div id="forecast1" class="card-body">
-                                    <span class="card-title" id='forecast-date1'>
-                                    </span>
-                                    <span id='forecast-icon1'></span>
-                                    <p class="card-text" id="temp1"></p>
-                                    <p class="card-text" id="humidity1"></p>
-                                </div>
-                            </div>
-                            <div class="card forecast">
-                                <div id="forecast2" class="card-body">
-                                    <span class="card-title" id='forecast-date2'>
-                                    </span>
-                                    <span id='forecast-icon2'></span>
-                                    <p class="card-text" id="temp2"></p>
-                                    <p class="card-text" id="humidity2"></p>
-                                </div>
-                            </div>
-                            <div class="card forecast">
-                                <div id="forecast3" class="card-body">
-                                    <span class="card-title" id='forecast-date3'>
-                                    </span>
-                                    <span id='forecast-icon3'></span>
-                                    <p class="card-text" id="temp3"></p>
-                                    <p class="card-text" id="humidity3"></p>
-                                </div>
-                            </div>
-                            <div class="card forecast">
-                                <div id="forecast4" class="card-body">
-                                    <span class="card-title" id='forecast-date4'>
-                                    </span>
-                                    <span id='forecast-icon4'></span>
-                                    <p class="card-text" id="temp4"></p>
-                                    <p class="card-text" id="humidity4"></p>
-                                </div>
-                            </div>
-                            <div class="card forecast">
-                                <div id="forecast5" class="card-body">
-                                    <span class="card-title" id='forecast-date5'>
-                                    </span>
-                                    <span id='forecast-icon5'></span>
-                                    <p class="card-text" id="temp5"></p>
-                                    <p class="card-text" id="humidity5"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class = "row border" id = "five-day-forecast">
+                        <h2 class= "col-12" id = "forecast"></h2>
+                        <div class = "d-flex" id = "fiveday-container"></div>
+                </div>  
             </div>
         </div>
-    </div>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
-
 </body>
-
-</html>
-
-
-</body>
-
 </html>
